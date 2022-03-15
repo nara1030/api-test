@@ -36,11 +36,8 @@ public class ParseController {
         }
 
         final String originalData = parseRequest.getUrlData();
-        final Map rearrangedData = parseService.parse(originalData);
-        System.out.println(rearrangedData.get("number"));
-        System.out.println(rearrangedData.get("alphabet"));
-
-        final Result response = parseService.output(originalData, parseRequest.getShare());
+        final String interleaverData = parseService.parse(originalData);
+        final Result response = parseService.output(interleaverData, parseRequest.getShare());
 
         return ResponseEntity.ok(response);
     }
