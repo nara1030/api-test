@@ -36,9 +36,9 @@ public class ParseController {
         }
 
         final String originalData = parseRequest.getUrlData();
-        final Map filteredData = parseService.parse(originalData);
-        System.out.println(filteredData.get("number"));
-        System.out.println(filteredData.get("alphabet"));
+        final Map rearrangedData = parseService.parse(originalData);
+        System.out.println(rearrangedData.get("number"));
+        System.out.println(rearrangedData.get("alphabet"));
 
         final Result response = parseService.output(originalData, parseRequest.getShare());
 
