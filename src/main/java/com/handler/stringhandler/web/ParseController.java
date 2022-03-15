@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 public class ParseController {
@@ -34,7 +35,12 @@ public class ParseController {
             throw new InputDataException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
 
-        final Result response = parseService.parse(parseRequest.getUrlData(), parseRequest.getShare());
+        final String originalData = parseRequest.getUrlData();
+        final Map filteredData = parseService.parse(originalData);
+        System.out.println(filteredData.get("number"));
+        System.out.println(filteredData.get("alphabet"));
+
+        final Result response = parseService.output(originalData, parseRequest.getShare());
 
         return ResponseEntity.ok(response);
     }
