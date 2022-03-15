@@ -3,6 +3,9 @@ package com.handler.stringhandler.web;
 import com.handler.stringhandler.exception.InputDataException;
 import com.handler.stringhandler.request.ParseRequest;
 import com.handler.stringhandler.response.ErrorCode;
+import com.handler.stringhandler.response.Result;
+import com.handler.stringhandler.service.ParseService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +15,12 @@ import javax.validation.Valid;
 
 @RestController
 public class ParseController {
+    private final ParseService parseService;
+
+    public ParseController(ParseService parseService) {
+        this.parseService = parseService;
+    }
+
     /**
      * POST REST API
      *
@@ -20,13 +29,13 @@ public class ParseController {
      * @exception
      */
     @PostMapping("/api")
-    public String parseDataByPostMethod(@RequestBody @Valid final ParseRequest parseRequest, BindingResult bindingResult) {
+    public ResponseEntity<Result> parseDataByPostMethod(@RequestBody @Valid final ParseRequest parseRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InputDataException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
 
-        System.out.println(parseRequest.getUrlData());
+        final Result response = parseService.parse(parseRequest.getUrlData(), parseRequest.getShare());
 
-        return null;
+        return ResponseEntity.ok(response);
     }
 }

@@ -23,6 +23,10 @@ public class ParseRequest {
         return data;
     }
 
+    public Integer getShare() {
+        return share;
+    }
+
     public ParseRequest(String url, String exposureType, Integer share) {
         this.url = url;
         this.exposureType = exposureType;
