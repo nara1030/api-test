@@ -25,6 +25,8 @@ public class ParseController {
             throw new InputDataException(ErrorCode.INVALID_INPUT_VALUE, bindingResult);
         }
 
+        System.out.println(parseRequest.getUrlData());
+
         return null;
     }
 }

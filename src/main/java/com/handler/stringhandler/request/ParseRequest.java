@@ -12,6 +12,17 @@ public class ParseRequest {
     @Min(value = 1, message = "출력묶음 단위는 양수여야 합니다.")
     private Integer share;
 
+    public String getUrlData() {
+        String data = null;
+        for (ExposureTypeValue exposureTypeValue : ExposureTypeValue.values()) {
+            if (exposureType.equals(exposureTypeValue.getType())) {
+                data = exposureTypeValue.parseUrlData(url);
+            }
+        }
+
+        return data;
+    }
+
     public ParseRequest(String url, String exposureType, Integer share) {
         this.url = url;
         this.exposureType = exposureType;
