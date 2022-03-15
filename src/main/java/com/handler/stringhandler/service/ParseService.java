@@ -2,20 +2,23 @@ package com.handler.stringhandler.service;
 
 import com.handler.stringhandler.response.Result;
 import com.handler.stringhandler.util.Arranger;
+import com.handler.stringhandler.util.Interleaver;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
 public class ParseService {
+    private final Interleaver interleaver;
     private final Arranger arranger;
 
-    public ParseService(Arranger arranger) {
+    public ParseService(Interleaver interleaver, Arranger arranger) {
+        this.interleaver = interleaver;
         this.arranger = arranger;
     }
 
-    public Map parse(final String data) {
-        return arranger.rearrange(data);
+    public String parse(final String data) {
+        return interleaver.interleave(arranger.rearrange(data));
     }
 
     public Result output(final String data, final Integer unit) {
